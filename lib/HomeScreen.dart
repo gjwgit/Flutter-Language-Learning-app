@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:translator/translator.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'FlagButton.dart';
 
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> _translatedTexts = [];
   List<String> _languagesCode = [
     'en',
-    'ru',
+    'id',
     'fr',
     'zh-cn',
     'hi',
@@ -47,7 +48,14 @@ class _HomeScreenState extends State<HomeScreen> {
     await flutterTts.setLanguage(languageCode);
     await flutterTts.setPitch(1);
     await flutterTts.setVolume(1);
-    await flutterTts.setSpeechRate(1);
+    if (kIsWeb)
+    {
+      await flutterTts.setSpeechRate(0.4);
+    }
+    else
+    {
+      await flutterTts.setSpeechRate(0.9);
+    }
     await flutterTts.speak(text);
   }
 
@@ -99,32 +107,22 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 FlagButton(
                   text: _translatedTexts.isEmpty
-                      ? 'English United States'
+                      ? 'English'
                       : _translatedTexts[0],
-                  flag: 'united-states.png',
+                  flag: 'australia.png',
                   onTap: () {
                     if (_translatedTexts.isNotEmpty)
-                      speak('en-US', _translatedTexts[0]);
+                      speak('en-au', _translatedTexts[0]);
                   },
                 ),
                 FlagButton(
                   text: _translatedTexts.isEmpty
-                      ? 'English United Kingdom'
-                      : _translatedTexts[0],
-                  flag: 'united-kingdom.png',
-                  onTap: () {
-                    if (_translatedTexts.isNotEmpty)
-                      speak('en-GB', _translatedTexts[0]);
-                  },
-                ),
-                FlagButton(
-                  text: _translatedTexts.isEmpty
-                      ? 'Russian'
+                      ? 'Indonesian'
                       : _translatedTexts[1],
-                  flag: 'russia.png',
+                  flag: 'indonesia.png',
                   onTap: () {
                     if (_translatedTexts.isNotEmpty)
-                      speak('ru-RU', _translatedTexts[1]);
+                      speak('id', _translatedTexts[1]);
                   },
                 ),
                 FlagButton(
