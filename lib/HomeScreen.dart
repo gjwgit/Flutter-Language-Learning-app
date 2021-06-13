@@ -48,14 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await flutterTts.setLanguage(languageCode);
     await flutterTts.setPitch(1);
     await flutterTts.setVolume(1);
-    if (kIsWeb)
-    {
-      await flutterTts.setSpeechRate(0.4);
-    }
-    else
-    {
-      await flutterTts.setSpeechRate(0.9);
-    }
+    await flutterTts.setSpeechRate(kIsWeb ? 0.4 : 0.7);
     await flutterTts.speak(text);
   }
 
